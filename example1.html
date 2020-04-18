@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>산수를 풀어봅시다1</title>
+
+<style>
+	td
+	{
+		padding-left:13px;
+		padding-right:13px;
+	}
+	
+	</style>
+</style>
+<script type="text/javascript">
+		var show=null, count;
+		function ontime()	//시간 카운트
+		{
+			document.getElementById("grade").innerHTML = 0;
+			var time = document.getElementById("time");
+			count = 10;
+			if(show != null)
+				clearTimeout(show);
+			outtime(time);
+		}
+		function outtime(cls)	//점점 시간이 줄어드는 함수
+		{
+			count--;
+			cls.innerHTML = count;
+			
+			if(count != 0)
+				show = setTimeout("outtime(time)", 1000);
+			else 
+				correct();	// 0이 되면 채점을 하는 함수
+		}
+		function refresh() {
+			var num = document.getElementsByClassName("num");
+			var one = document.getElementsByClassName("one");
+			var two = document.getElementsByClassName("two");
+			var three = document.getElementsByClassName("three");
+			for(var i=0; i<4; i++) 
+			{
+				num[i].innerHTML = (i+1)+".";
+				one[i].style.textDecoration = "none";
+				two[i].innerHTML = "";
+				three[i].innerHTML = "?";
+			}
+		}
+		function make()	//문제 만들기 함수
+		{
+			var one = document.getElementsByClassName("one");
+			var two = document.getElementsByClassName("two");
+			for(i=0; i<one.length; i++)
+			{
+				var num1 = Math.floor(Math.random()*50);	//첫 번째 랜덤 넘버
+				var num2 = Math.floor(Math.random()*50);	//두 번째 랜던 넘버
+				var op = Math.floor(Math.random()*4);		// 연산자를 랜덤으로 하기 위해서 상수화를 하고 switch를 써서 연산자를 정한다.
+				var operator;
+				
+				switch(op)
+				{
+					case 0 : operator = "+"; 
+						break;
+					case 1 : operator = "-"; 
+						break;
+					case 2 : operator = "*"; 
+						break;
+					case 3 : operator = "/"; 
+						break;
+				}
+				one[i].innerHTML = num1 + " " + operator + " " + num2;	// 문제 출력
+			}
+		}
+		function correct()	//채점 함수
+		{
+			var countgrade = 0;	// 채점 개수
+			var num = document.getElementsByClassName("num");
+			var one = document.getElementsByClassName("one");
+			var two = document.getElementsByClassName("two");
+			var three = document.getElementsByClassName("three");
+			for(i=0; i<one.length; i++)
+			{
+				var question = one[i].innerHTML;
+				var answer = two[i].value;
+				var correct = Math.floor(eval(question));
+				if(parseInt(answer) == correct)	//정답이면 개수 +1
+				{
+					countgrade += 1;
+					three[i].innerHTML = "정답!";
+					num[i].innerHTML = "O";
+				}
+				else if(answer=="")	//비어 있으면 틀림
+				{
+					one[i].style.textDecoration = "line-through";
+					three[i].innerHTML = "정답을 입력하세요!";
+					num[i].innerHTML = "X";
+				}	
+				else if(isNaN(answer))// 숫자가 아니면 틀림
+				{	
+					one[i].style.textDecoration = "line-through";
+					three[i].innerHTML = "숫자를 입력하세요!"
+					num[i].innerHTML = "X";
+				}
+				else// 정답이 틀리면 틀림
+				{
+					one[i].style.textDecoration = "line-through";
+					three[i].innerHTML = "틀렸습니다!";
+					num[i].innerHTML = "X";
+				}
+			}
+			document.getElementById("grade").innerHTML = countgrade;	// 정답 개수 출력
+		}
+	</script>
+</head>
+
+<body onload="ontime(), make()">
+
+
+	<h3>다음 식을 계산하시오.</h3>
+	문제는 자동으로 생성되며, 10초가 지나면 자동 채점됩니다.
+	<div> 남은시간 <span id="time">0</span>
+	</div>
+	<hr>
+	<form>
+		<table>
+			<tr>
+				<td class = "num">1.</td>
+				<td class = "one"></td>
+				<td><input class="two" type="text" size="6"></td>
+				<td class = "three" type="text" size="6">?
+				</td>
+			</tr>
+
+			<tr>
+				<td class = "num">2.</td>
+				<td class = "one"></td>
+				<td><input class="two" type="text" size="6"></td>
+				<td class = "three" type="text" size="6">?
+				</td>
+			</tr>
+
+			<tr>
+				<td class = "num">3.</td>
+				<td class = "one"></td>
+				<td><input class="two" type="text" size="6"></td>
+				<td class = "three" type="text" size="6">?
+				</td>
+			</tr>
+
+			<tr>
+				<td class = "num">4.</td>
+				<td class = "one"></td>
+				<td><input class="two" type="text" size="6"></td>
+				<td class = "three" type="text" size="6">?
+				</td>
+			</tr>
+		</table>
+		<hr>
+		<table>
+			<tr>
+				<td><button type="button" onclick="ontime(), make(),refresh()">새로고침</button></td>
+			</tr>
+			<tr>
+				<td><span id="grade">0</span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+		</table>
+	</form>
+
+
+</body>
+</html>
