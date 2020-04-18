@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>
+			회원가입
+		</title>
+	</head>
+	<body>
+		<div id="proWrap">
+			<div id="proHead" role="banner" class="pro_Head">
+				<div class="inner_header"></div>
+			</div>
+			<hr class="hide">
+			<div id="proContent" role="main">
+				<div id="cMain">
+					<div id="mFeature" class="feature_main">
+						<div class="inner_feature">
+							<h2 class="signUp">가입하기</h2>
+							<p class="desc_g">스케쥴러 가입</p>
+						</div>
+					</div>
+					<div id="mArticle">
+						<div class="content_signup">
+							<form action="/member/join" id="joinForm" method="post">
+								<fieldset id="infoFieldset" style>
+									<strong class="pro_step">회원 정보 입력</strong>
+									<div class="cont_data">
+										<dl class>
+											<dt>
+												<label for="loginId">아이디</label>
+												<input type="text" id="enrollId" placeholder="아이디를 입력하세요.">
+												<button type="submit" onclick="checkId()">중복확인</button>
+											</dt>
+											<dd>
+												<div class="inp_text"></div>
+												<span class="txt_error">영문, 숫자를 조합하여 10자 이내로 적어주세요.</span>
+											</dd>
+										</dl>
+										<dl class>
+											<dt>
+												<label for="pw">비밀번호</label>
+												<input type="password" placeholder="비밀번호를 입력하세요.">
+											</dt>
+											<dd>
+											<div class="inp_text"></div>
+											<span class="txt_error">영문, 숫자, 특수문자를 조합하여 10자 이상 적어주세요.</span>
+											</dd>
+										</dl>
+										<dl class>
+											<dt>
+												<label for="pw">비밀번호 확인</label>
+												<input type="password" placeholder="비밀번호를 한번 더 입력하세요.">
+											</dt>
+										</dl>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="project1.js"></script>
+	</body>
+</html>
