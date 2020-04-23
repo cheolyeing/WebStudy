@@ -10,10 +10,15 @@ public class StringCalculator {
 		boolean custom = false;
 		String tmp = "";
 		
+		if(s==null || s.isEmpty()) return 0;
+		
 		if(s.charAt(0)=='/') {
 			customSep = s.charAt(2);
 			start = 4;
 			custom = true;
+		}
+		if(!s.contains(separator+"") && !s.contains(customSep+"")) {
+			return Integer.parseInt(s);
 		}
 		
 		for(int i=start; i<finish; i++) {
